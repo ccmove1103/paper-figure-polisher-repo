@@ -1,0 +1,117 @@
+{
+  "default_group": "其他项目",
+  "followup_group": "随访指标",
+  "outcome_group": "结局事件",
+  "preserve_previous_suffixes": [
+    ":",
+    "："
+  ],
+  "followup_markers": [
+    "术后1个月",
+    "术后3个月",
+    "术后6/9个月",
+    "术后12个月"
+  ],
+  "outcome_keywords": [
+    "心源性死亡",
+    "死亡",
+    "心肌梗死",
+    "卒中",
+    "心衰",
+    "出血",
+    "事件",
+    "mortality",
+    "death",
+    "readmission",
+    "stroke",
+    "bleeding",
+    "outcome"
+  ],
+  "outcome_forced_labels": [
+    "死亡时间"
+  ],
+  "groups": [
+    {
+      "title": "人口学与住院信息",
+      "keywords": [
+        "住院号",
+        "性别",
+        "男",
+        "女",
+        "年龄",
+        "体重",
+        "身高",
+        "bmi",
+        "住院天数",
+        "demographic",
+        "age",
+        "sex",
+        "race",
+        "ethnicity",
+        "height",
+        "weight",
+        "hospital stay"
+      ]
+    },
+    {
+      "title": "既往史与合并症",
+      "keywords": [
+        "高血压",
+        "糖尿病",
+        "肾病",
+        "高血脂",
+        "脑梗",
+        "脑出血",
+        "冠心病",
+        "房颤",
+        "慢阻肺",
+        "copd",
+        "hypertension",
+        "diabetes",
+        "stroke",
+        "comorbid",
+        "comorbidity",
+        "kidney",
+        "renal"
+      ]
+    },
+    {
+      "title": "基线实验室与辅助检查",
+      "keywords": [
+        "基线",
+        "ast",
+        "alt",
+        "tbil",
+        "dbil",
+        "cr(",
+        " cr",
+        "ua(",
+        " d-d",
+        "aptt",
+        "pt(",
+        "fbg",
+        "ck",
+        "ck-mb",
+        "ldh",
+        "wbc",
+        "neut",
+        "plt",
+        "mpv",
+        "pdw",
+        "p-lcc",
+        "p-lcr",
+        "crp",
+        "pct",
+        "lvef",
+        "lvedd",
+        "前脑钠肽",
+        "肌酸激酶",
+        "乳酸脱氢酶",
+        "左室",
+        "二聚体",
+        "尿酸",
+        "胆红素"
+      ]
+    }
+  ]
+}

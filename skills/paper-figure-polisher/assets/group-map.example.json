@@ -1,0 +1,19 @@
+{
+  "Demographics": [
+    "Sex",
+    "Age",
+    "Race",
+    "BMI"
+  ],
+  "Comorbidities": [
+    "Hypertension",
+    "Diabetes",
+    "CKD",
+    "COPD"
+  ],
+  "Outcomes": [
+    "Mortality",
+    "Length of stay",
+    "Readmission"
+  ]
+}
