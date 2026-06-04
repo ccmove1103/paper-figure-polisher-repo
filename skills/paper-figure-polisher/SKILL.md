@@ -10,6 +10,7 @@ description: Organize academic manuscripts in .docx format and standardize table
 Use this skill as a focused paper-finishing workflow for Word manuscripts. The primary targets are `.docx` manuscripts plus table sources in `.csv` or `.xlsx`. The first version is optimized for:
 
 - converting spreadsheet tables into three-line tables;
+- inserting new tables and figures into the correct manuscript order;
 - forcing one figure or chart block per page;
 - normalizing captions, numbering, and figure/table references;
 - applying a consistent publication-style visual standard.
@@ -46,6 +47,9 @@ Use this skill as a focused paper-finishing workflow for Word manuscripts. The p
 
 - Treat `.docx` as the source of truth for final layout.
 - When converting tables from `.csv` or `.xlsx`, create editable Word tables rather than pasting screenshots.
+- When adding new objects into an existing manuscript, preserve `table -> figure` block order rather than appending everything to the end.
+- New tables should be inserted after the last existing table block; if no table exists yet, insert them before the first figure block.
+- New figures should be inserted after the last existing figure block; if no figure exists yet, insert them after the existing table blocks.
 - Use page breaks or section-aware layout so each figure starts on a fresh page.
 - Keep captions attached to their target figure or table.
 - Do not compress fonts or scale objects arbitrarily to force fit. If a table is too wide, shorten headers, rotate the page for that section, or split the table logically.
@@ -72,6 +76,7 @@ For spreadsheet data:
 Read `references/table-workflow.md` for the detailed standard.
 
 Use `scripts/spreadsheet_to_three_line_table.py` when a spreadsheet needs to become an editable grouped three-line Word table.
+When this script is used with an existing `.docx`, it should insert the new table into the table block region instead of blindly appending to the end of the manuscript.
 
 Use `scripts/normalize_docx_tables.py` when a `.docx` already contains tables that need to be normalized into the same three-line style without rebuilding them from spreadsheet data. This path should also detect grouped heading rows and apply heading-plus-indented-children hierarchy when the table structure supports it.
 Prefer this path for complex Word-native cases including merged cells, multiple tables mixed with prose, wide tables, and multi-page tables that need better cross-page appearance.
@@ -89,6 +94,7 @@ Read `references/figure-pagination.md` for layout guidance.
 
 Use `scripts/paginate_docx_figures.py` when an existing `.docx` needs page breaks inserted so each figure starts on a fresh page.
 This path should also normalize detectable `Figure n.` captions and auto-generate missing figure captions in sequence when the figure block is otherwise unlabeled.
+Use `scripts/insert_figures_into_docx.py` when one or more new image files need to be inserted into an existing manuscript while preserving the correct figure-block order.
 
 ## Style Normalization Rules
 
@@ -115,6 +121,8 @@ When asked to produce outputs, prefer:
 Use `tests/run_regression_tests.py` when changing formatting logic, caption handling, grouping inference, or DOCX normalization behavior. The test set is intentionally small and covers:
 
 - plain spreadsheet-to-table conversion without forced grouping;
+- insertion order for new tables relative to existing figure blocks;
+- insertion order for new figures relative to existing figure blocks;
 - inferred medical grouping headings from row labels;
 - existing DOCX table caption cleanup and caption auto-generation;
 - existing DOCX figure caption cleanup and caption auto-generation.
