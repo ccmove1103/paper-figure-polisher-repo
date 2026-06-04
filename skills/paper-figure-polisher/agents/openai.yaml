@@ -1,4 +1,0 @@
-interface:
-  display_name: "Paper Figure Polisher"
-  short_description: "Polish DOCX papers, tables, and figures"
-  default_prompt: "Use $paper-figure-polisher to organize this DOCX manuscript, convert CSV/XLSX data into three-line tables, place each figure on a new page, and normalize figure formatting."
