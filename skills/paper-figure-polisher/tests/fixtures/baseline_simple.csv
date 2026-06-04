@@ -1,0 +1,4 @@
+Model,Covariates included,Treatment effect estimate (percentage points),95% CI,P value
+Unadjusted,None,-20.26,-36.40 to -4.11,0.0139
+Adjusted model 1,"Baseline PaO2/FiO2, acute heart failure, acute liver injury, and COPD",-20.03,-36.45 to -3.61,0.0168
+Adjusted model 2,Model 1 covariates plus baseline SOFA score and APACHE II score,-18.89,-35.07 to -2.70,0.0222
