@@ -13,6 +13,7 @@ It is designed for manuscript cleanup workflows where table structure, caption f
 - Clean up non-standard captions such as `Figure1`, `figure 1 :`, or `Table 1 :`
 - Auto-generate missing `Table n.` and `Figure n.` captions in sequence order
 - Keep one figure block per page and normalize figure captions and notes
+- Detect existing table and figure blocks and insert newly added tables or figures into the correct order
 - Isolate truly wide tables into landscape sections while keeping surrounding prose in portrait layout
 - Repeat table header rows across page breaks and reduce row splitting where Word supports it
 
@@ -107,6 +108,7 @@ Capabilities:
 - apply three-line table borders
 - normalize fonts, alignment, captions, and notes
 - infer medical grouping headings from row labels
+- when used with an existing `.docx`, insert a new table after the last table block and before figure blocks if needed
 - read fixed grouping rules from `assets/medical-grouping-rules.json`
 
 ### `scripts/normalize_docx_tables.py`
@@ -133,6 +135,28 @@ Capabilities:
 - auto-generate missing figure captions
 - clean up non-standard figure caption prefixes
 
+### `scripts/insert_figures_into_docx.py`
+
+Use this when one or more new image figures need to be inserted into an existing `.docx`.
+
+Capabilities:
+
+- insert new figures after the last existing figure block
+- keep table blocks before figure blocks in mixed manuscripts
+- if no figure exists yet, insert the first figure after existing table blocks
+- auto-create `Figure n.` captions for newly inserted figures
+
+## Table / Figure Ordering
+
+When inserting new content into an existing manuscript:
+
+- new tables are inserted after the last existing table block
+- if no table exists yet, new tables are inserted before the first figure block
+- new figures are inserted after the last existing figure block
+- if no figure exists yet, new figures are inserted after existing table blocks
+
+This keeps the manuscript in a stable `table -> figure` block order instead of appending every new object to the end of the document.
+
 ## Grouping Rules
 
 Default medical grouping rules live in:
@@ -150,6 +174,8 @@ A small regression suite is included at:
 It covers:
 
 - plain spreadsheet-to-table conversion
+- inserting a new table before existing figure blocks when needed
+- inserting a new figure after existing figure blocks
 - inferred medical grouping headings
 - existing DOCX table caption cleanup and auto-generation
 - existing DOCX figure caption cleanup and auto-generation
@@ -178,6 +204,7 @@ python skills/paper-figure-polisher/tests/run_regression_tests.py
 - 清理不规范 caption，例如 `Figure1`、`figure 1 :`、`Table 1 :`
 - 自动补全缺失的 `Table n.` 和 `Figure n.` 编号
 - 让单个图表独占一页，并规范图题与图注
+- 自动识别文档中的 table 和 figure 块，并把新增内容插到正确位置
 - 将真正超宽的表格单独放入横向分节，同时保留周围正文为纵向
 - 支持跨页表格的表头重复与尽量减少断行
 
@@ -261,6 +288,7 @@ C:\Users\<your-user>\.codex\skills\paper-figure-polisher
 - 自动应用三线表边框
 - 统一字体、对齐、表题和表注
 - 根据行内容识别医学分组标题
+- 如果配合已有 `.docx` 使用，会把新表插到最后一个 table 块后；如果还没有 table，则插到第一个 figure 前
 - 从 `assets/medical-grouping-rules.json` 读取固定分组规则
 
 #### `scripts/normalize_docx_tables.py`
@@ -287,6 +315,28 @@ C:\Users\<your-user>\.codex\skills\paper-figure-polisher
 - 自动补全缺失的图题编号
 - 清理不规范的图题前缀
 
+#### `scripts/insert_figures_into_docx.py`
+
+用于把一个或多个新图插入到已有 `.docx` 中。
+
+功能包括：
+
+- 把新 figure 插到最后一个现有 figure 块后面
+- 在混排文稿中保持 table 在前、figure 在后
+- 如果还没有 figure，则把第一个新 figure 插到现有 table 块后面
+- 为新插入的图自动生成 `Figure n.` 图题
+
+### Table / Figure 插入顺序
+
+当向已有文稿中补充新内容时：
+
+- 新增 `table`：插到最后一个已有 `table` 块后面
+- 如果还没有 `table`：新增 `table` 插到第一个 `figure` 前面
+- 新增 `figure`：插到最后一个已有 `figure` 块后面
+- 如果还没有 `figure`：新增 `figure` 插到现有 `table` 块后面
+
+这样可以保持文稿里的 `table -> figure` 顺序，而不是把所有新对象都追加到文末。
+
 ### 分组规则
 
 默认医学分组规则文件在：
@@ -304,6 +354,8 @@ C:\Users\<your-user>\.codex\skills\paper-figure-polisher
 它覆盖了：
 
 - 表格转换
+- 新表插入到已有 figure 前的顺序控制
+- 新 figure 插入到已有 figure 后的顺序控制
 - 医学分组标题识别
 - 现有 DOCX 表格 caption 清理与自动补全
 - 现有 DOCX 图表 caption 清理与自动补全
